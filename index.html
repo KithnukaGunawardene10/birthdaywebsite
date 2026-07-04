@@ -7,8 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-    
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/v3.5.0/model-viewer.min.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
@@ -24,6 +22,12 @@
             width: 100%;
             height: 380px;
             object-fit: cover;
+        }
+        #camera-feed {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            border-radius: 16px;
         }
     </style>
 </head>
@@ -65,7 +69,7 @@
             </div>
         </nav>
 
-        <!-- Hero, Gallery, Message sections unchanged -->
+        <!-- Hero -->
         <section id="home" class="hero-bg h-screen flex items-center justify-center relative text-white">
             <div class="max-w-4xl mx-auto text-center px-6 pt-20">
                 <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur px-8 py-3 rounded-full mb-8">
@@ -80,6 +84,7 @@
             </div>
         </section>
 
+        <!-- Gallery -->
         <section id="gallery" class="max-w-7xl mx-auto px-6 py-24">
             <h2 class="text-6xl title-font text-center mb-4 text-rose-700">Beautiful You</h2>
             <p class="text-center text-2xl mb-16 text-amber-800">Amma in her gorgeous moments</p>
@@ -107,34 +112,29 @@
             </div>
         </section>
 
-        <!-- AR Cake Section - Simplified for iOS Safari -->
+        <!-- Camera + Cake Overlay Section -->
         <section id="cake" class="bg-gradient-to-b from-amber-100 to-rose-100 py-24">
             <div class="max-w-5xl mx-auto px-6 text-center">
                 <h2 class="text-6xl title-font mb-6">Your Special Birthday Cake for Amma</h2>
-                <p class="text-2xl mb-8">Point your camera → Place the cake in real world!</p>
+                <p class="text-2xl mb-8">Live Camera with Birthday Cake Overlay</p>
                 
-                <div class="bg-white rounded-3xl p-4 shadow-2xl border border-amber-200">
-                    <model-viewer 
-                        id="ar-model"
-                        src="https://modelviewer.dev/assets/ShopifyModels/Bakery/Bakery.glb"
-                        alt="3D Birthday Cake"
-                        ar 
-                        ar-modes="quick-look"
-                        camera-controls
-                        style="width: 100%; height: 520px; background-color: #111827; border-radius: 16px;"
-                        loading="eager">
-                    </model-viewer>
+                <div class="bg-black rounded-3xl overflow-hidden shadow-2xl relative">
+                    <video id="camera-feed" autoplay playsinline></video>
+                    
+                    <!-- Cake Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="text-center">
+                            <div class="text-[180px] leading-none mb-4 drop-shadow-2xl">🎂</div>
+                            <div class="text-6xl mb-2 drop-shadow-2xl">🕯️ 🕯️ 🕯️</div>
+                            <div class="text-5xl title-font text-white drop-shadow-2xl">Happy Birthday Amma!</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mt-8 space-y-4">
-                    <button onclick="tryAR()" 
-                            class="w-full px-10 py-6 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-2xl font-bold rounded-2xl hover:scale-105 transition-all shadow-lg">
-                        📱 Open Camera & Place Cake in AR
-                    </button>
-                    <p class="text-sm text-amber-700">
-                        If nothing happens, tap the 3D cake directly and look for "AR" button
-                    </p>
-                </div>
+                <button onclick="startCamera()" 
+                        class="mt-8 px-12 py-6 bg-gradient-to-r from-rose-500 to-pink-500 text-white text-2xl font-bold rounded-2xl hover:scale-105 transition-all shadow-lg">
+                    📱 Start Live Camera
+                </button>
             </div>
         </section>
 
@@ -158,6 +158,7 @@
     <script>
         const audio = document.getElementById('birthday-song');
         let isPlaying = false;
+        let stream = null;
 
         function enterWebsite() {
             document.getElementById('welcome-screen').style.opacity = '0';
@@ -182,17 +183,20 @@
             isPlaying = !isPlaying;
         }
 
-        function launchConfetti() {
-            confetti({ particleCount: 300, spread: 80, origin: { y: 0.6 } });
+        async function startCamera() {
+            const video = document.getElementById('camera-feed');
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "environment" } 
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                alert("Cannot access camera. Please allow camera permission.");
+            }
         }
 
-        function tryAR() {
-            const model = document.getElementById('ar-model');
-            if (model) {
-                model.activateAR();
-            } else {
-                alert("AR is loading. Please wait a moment and try again.");
-            }
+        function launchConfetti() {
+            confetti({ particleCount: 300, spread: 80, origin: { y: 0.6 } });
         }
     </script>
 </body>
