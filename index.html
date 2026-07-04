@@ -34,9 +34,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align: center;
-            pointer-events: none;
+            width: 280px;
+            height: 280px;
             z-index: 10;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -121,7 +122,7 @@
             </div>
         </section>
 
-        <!-- Live Camera with 3D Cake -->
+        <!-- Live Camera with Sketchfab 3D Cake -->
         <section id="cake" class="bg-gradient-to-b from-amber-100 to-rose-100 py-24">
             <div class="max-w-5xl mx-auto px-6 text-center">
                 <h2 class="text-6xl title-font mb-6">Your Special Birthday Cake for Amma</h2>
@@ -130,11 +131,21 @@
                 <div class="bg-black rounded-3xl overflow-hidden shadow-2xl relative">
                     <video id="camera-feed" autoplay playsinline></video>
                     
-                    <!-- Beautiful 3D Cake Overlay -->
+                    <!-- Sketchfab 3D Cake Embed -->
                     <div class="cake-overlay">
-                        <div class="text-[260px] leading-none drop-shadow-2xl animate-bounce">🎂</div>
-                        <div class="text-6xl text-white title-font drop-shadow-2xl -mt-8">Happy Birthday</div>
-                        <div class="text-7xl text-white title-font font-bold drop-shadow-2xl">Amma!</div>
+                        <iframe title="Birthday Cake Pink" 
+                                frameborder="0" 
+                                allowfullscreen 
+                                mozallowfullscreen="true" 
+                                webkitallowfullscreen="true" 
+                                allow="autoplay; fullscreen; xr-spatial-tracking" 
+                                xr-spatial-tracking 
+                                execution-while-out-of-viewport 
+                                execution-while-not-rendered 
+                                web-share 
+                                src="https://sketchfab.com/models/b46c14ded6504e7bab94c580b4af2fe4/embed?autospin=1&transparent=1&ui_controls=0&ui_infos=0&ui_watermark=0" 
+                                style="width: 100%; height: 100%; border-radius: 16px;">
+                        </iframe>
                     </div>
                 </div>
 
@@ -198,7 +209,7 @@
                 });
                 video.srcObject = stream;
             } catch (err) {
-                alert("Cannot access camera. Please allow permission.");
+                alert("Cannot access camera. Please allow permission when prompted.");
             }
         }
 
