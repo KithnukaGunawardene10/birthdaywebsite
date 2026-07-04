@@ -132,27 +132,9 @@
                     
                     <!-- Beautiful 3D Cake Overlay -->
                     <div class="cake-overlay">
-                        <div class="relative inline-block">
-                            <!-- Cake Base -->
-                            <div class="w-64 h-40 bg-gradient-to-b from-amber-400 to-orange-500 rounded-3xl shadow-2xl relative mx-auto"></div>
-                            <!-- Top Layer -->
-                            <div class="w-56 h-12 bg-gradient-to-b from-pink-400 to-rose-500 rounded-2xl absolute -top-6 left-1/2 -translate-x-1/2 shadow-xl"></div>
-                            <!-- Icing -->
-                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 text-7xl">🍓</div>
-                            <!-- Candles -->
-                            <div class="absolute -top-20 left-1/2 -translate-x-1/2 flex gap-6 text-5xl">
-                                <div>🕯️</div>
-                                <div>🕯️</div>
-                                <div>🕯️</div>
-                            </div>
-                            <!-- Text -->
-                            <div class="absolute -bottom-20 left-1/2 -translate-x-1/2 text-white text-5xl title-font drop-shadow-2xl tracking-wider">
-                                Happy Birthday
-                            </div>
-                            <div class="absolute -bottom-28 left-1/2 -translate-x-1/2 text-white text-6xl title-font font-bold drop-shadow-2xl">
-                                Amma!
-                            </div>
-                        </div>
+                        <div class="text-[260px] leading-none drop-shadow-2xl animate-bounce">🎂</div>
+                        <div class="text-6xl text-white title-font drop-shadow-2xl -mt-8">Happy Birthday</div>
+                        <div class="text-7xl text-white title-font font-bold drop-shadow-2xl">Amma!</div>
                     </div>
                 </div>
 
@@ -216,7 +198,7 @@
                 });
                 video.srcObject = stream;
             } catch (err) {
-                alert("Cannot access camera. Please allow permission when prompted.");
+                alert("Cannot access camera. Please allow permission.");
             }
         }
 
