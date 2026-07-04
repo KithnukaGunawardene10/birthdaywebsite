@@ -29,6 +29,15 @@
             object-fit: cover;
             border-radius: 16px;
         }
+        .cake-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-rose-50 via-amber-50 to-yellow-50 text-amber-950 overflow-x-hidden">
@@ -112,21 +121,37 @@
             </div>
         </section>
 
-        <!-- Camera + Cake Overlay Section -->
+        <!-- Live Camera with 3D Cake -->
         <section id="cake" class="bg-gradient-to-b from-amber-100 to-rose-100 py-24">
             <div class="max-w-5xl mx-auto px-6 text-center">
                 <h2 class="text-6xl title-font mb-6">Your Special Birthday Cake for Amma</h2>
-                <p class="text-2xl mb-8">Live Camera with Birthday Cake Overlay</p>
+                <p class="text-2xl mb-8">Live Camera with Beautiful 3D Cake</p>
                 
                 <div class="bg-black rounded-3xl overflow-hidden shadow-2xl relative">
                     <video id="camera-feed" autoplay playsinline></video>
                     
-                    <!-- Cake Overlay -->
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div class="text-center">
-                            <div class="text-[180px] leading-none mb-4 drop-shadow-2xl">🎂</div>
-                            <div class="text-6xl mb-2 drop-shadow-2xl">🕯️ 🕯️ 🕯️</div>
-                            <div class="text-5xl title-font text-white drop-shadow-2xl">Happy Birthday Amma!</div>
+                    <!-- Beautiful 3D Cake Overlay -->
+                    <div class="cake-overlay">
+                        <div class="relative inline-block">
+                            <!-- Cake Base -->
+                            <div class="w-64 h-40 bg-gradient-to-b from-amber-400 to-orange-500 rounded-3xl shadow-2xl relative mx-auto"></div>
+                            <!-- Top Layer -->
+                            <div class="w-56 h-12 bg-gradient-to-b from-pink-400 to-rose-500 rounded-2xl absolute -top-6 left-1/2 -translate-x-1/2 shadow-xl"></div>
+                            <!-- Icing -->
+                            <div class="absolute -top-8 left-1/2 -translate-x-1/2 text-7xl">🍓</div>
+                            <!-- Candles -->
+                            <div class="absolute -top-20 left-1/2 -translate-x-1/2 flex gap-6 text-5xl">
+                                <div>🕯️</div>
+                                <div>🕯️</div>
+                                <div>🕯️</div>
+                            </div>
+                            <!-- Text -->
+                            <div class="absolute -bottom-20 left-1/2 -translate-x-1/2 text-white text-5xl title-font drop-shadow-2xl tracking-wider">
+                                Happy Birthday
+                            </div>
+                            <div class="absolute -bottom-28 left-1/2 -translate-x-1/2 text-white text-6xl title-font font-bold drop-shadow-2xl">
+                                Amma!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -191,7 +216,7 @@
                 });
                 video.srcObject = stream;
             } catch (err) {
-                alert("Cannot access camera. Please allow camera permission.");
+                alert("Cannot access camera. Please allow permission when prompted.");
             }
         }
 
